@@ -45,6 +45,7 @@ try {
   await a.goto("/buat-room");
   await a.getByLabel("Nama tampilan", { exact: true }).fill("Verifikasi Owner");
   await a.getByLabel("Nama room", { exact: true }).fill(name);
+  await a.getByRole("radio", { name: /Publik/ }).check();
   await a.getByRole("button", { name: /Buat Room/ }).click();
   await a.waitForURL(/\/room\//, { timeout: 45000 });
   code = new URL(a.url()).pathname.split("/").at(-1);
@@ -148,6 +149,8 @@ try {
       ),
     ).toBe(true);
     await oauth.evaluate(() => window.scrollTo(0, 0));
+    // Full-page capture needs offscreen sections painted by Chromium as well.
+    await oauth.addStyleTag({ content: ".deferred-section { content-visibility: visible; }" });
     await oauth.screenshot({
       path: `reports/screenshots/phase-3-production-home-${width}.png`,
       fullPage: true,
