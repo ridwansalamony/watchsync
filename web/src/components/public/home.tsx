@@ -47,7 +47,7 @@ export function Home() {
           </div>
         </div>
         <div className="relative">
-          <div className="pointer-events-none absolute -inset-12 -z-10 bg-[radial-gradient(ellipse_at_center,hsl(239_84%_67%_/_0.10),transparent_70%)]" />
+          <div className="pointer-events-none absolute inset-0 -z-10 rounded-[24px] shadow-[0_0_64px_hsl(239_84%_67%_/_0.10)]" />
           <div className="relative aspect-video overflow-hidden rounded-[24px] border border-white/10 lg:aspect-[1.12]">
             <Image
               src={photos.cinema}
