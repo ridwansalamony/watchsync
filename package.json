@@ -1,0 +1,37 @@
+{
+  "name": "watchsync-room",
+  "private": true,
+  "workspaces": [
+    "web",
+    "shared",
+    "realtime"
+  ],
+  "scripts": {
+    "dev": "npm run dev -w web",
+    "build": "npm run build -w web && npm run build -w realtime",
+    "typecheck": "npm run typecheck -w web && npm run typecheck -w realtime",
+    "lint": "npm run lint -w web",
+    "test": "playwright test",
+    "format": "prettier --write web/src shared/src tests",
+    "audit:ui": "lighthouse http://127.0.0.1:3000 --chrome-flags=--headless=new --only-categories=performance,accessibility --output=json --output-path=reports/lighthouse-home.json --quiet",
+    "dev:realtime": "npm run dev -w realtime",
+    "db:generate": "npm run db:generate -w web",
+    "db:migrate": "npm run db:migrate -w web",
+    "db:seed": "npm run db:seed -w web",
+    "check:services": "node scripts/check-services.mjs",
+    "test:phase3": "playwright test tests/phase-three.spec.ts",
+    "test:load": "node scripts/load-realtime.mjs",
+    "check:production": "node scripts/check-production.mjs"
+  },
+  "overrides": {
+    "postcss": "8.5.30",
+    "sharp": "0.35.5"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.14.0",
+    "@playwright/test": "^1.56.0",
+    "artillery": "^2.0.34",
+    "lighthouse": "^13.5.0",
+    "prettier": "^3.9.10"
+  }
+}

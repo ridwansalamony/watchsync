@@ -1,0 +1,14 @@
+{
+  "name": "@watchsync/shared",
+  "version": "0.1.0",
+  "private": true,
+  "exports": {
+    "./types": "./src/types.ts",
+    "./validation": "./src/validation.ts",
+    "./video-policy": "./src/video-policy.ts",
+    "./redis-key": "./src/redis-key.ts"
+  },
+  "dependencies": {
+    "zod": "^3.25.0"
+  }
+}

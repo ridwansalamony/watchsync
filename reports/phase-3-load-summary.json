@@ -1,0 +1,10 @@
+{
+  "peakConnections": 500,
+  "peakRooms": 10,
+  "completed": 500,
+  "failed": 0,
+  "engine": "Artillery dengan processor Socket.IO",
+  "rooms": 10,
+  "membersPerRoom": 50,
+  "duration": "20 detik ramp + 60 detik heartbeat/ping"
+}

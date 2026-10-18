@@ -1,0 +1,30 @@
+{
+  "name": "@watchsync/realtime",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+    "node": "22.x"
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "^1.2.0",
+    "@upstash/redis": "^1.39.0",
+    "dotenv": "^18.0.8",
+    "drizzle-orm": "^0.45.4",
+    "jose": "^6.2.12",
+    "livekit-server-sdk": "^2.19.1",
+    "socket.io": "^4.8.4",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.5",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
+  },
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "start": "tsx src/index.ts",
+    "build": "tsc --noEmit",
+    "typecheck": "tsc --noEmit"
+  }
+}

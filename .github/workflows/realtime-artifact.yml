@@ -1,0 +1,27 @@
+name: Build realtime artifact
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  image:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: realtime/Dockerfile
+          load: true
+          tags: |
+            watchsync-realtime:latest
+            watchsync-realtime:${{ github.sha }}
+      - name: Ekspor image
+        run: docker save watchsync-realtime:latest watchsync-realtime:${{ github.sha }} | gzip > /tmp/watchsync-realtime.tar.gz
+      - uses: actions/upload-artifact@v4
+        with:
+          name: watchsync-realtime-image
+          path: /tmp/watchsync-realtime.tar.gz
+          retention-days: 3
+          compression-level: 0

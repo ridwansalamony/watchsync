@@ -1,0 +1,13 @@
+.env
+.env.*
+**/.env
+**/.env.*
+.runtime
+reports
+tests
+test-results*
+playwright-report
+.git
+.github
+deploy
+realtime
