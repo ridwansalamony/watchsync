@@ -251,7 +251,7 @@ Deployment 18 Oktober 2026:
 - Database `watchsync_production` sudah dimigrasikan tanpa seed, terpisah dari development.
 - Redis: `REDIS_NAMESPACE=wsr:production` sama pada web dan VPS; development tetap `wsr`.
 - `.env.production` lokal dan `deploy/.env.production` diabaikan Git. Tiga secret aplikasi produksi berbeda dari development. Env VPS hanya berisi kebutuhan realtime, mode file 600.
-- Callback Google: `https://watchsync-ruby.vercel.app/api/auth/callback/google`. Pemilik sudah mengonfirmasi penyimpanan callback; login interaktif masih perlu diuji.
+- Callback Google: `https://watchsync-ruby.vercel.app/api/auth/callback/google`. Pemilik sudah mengonfirmasi login Google interaktif berhasil dan persistensi akun/provider telah diperiksa tanpa menampilkan data profil/token.
 - GitHub terhubung ke proyek Vercel. Push main membangun web; image realtime diperbarui melalui workflow terpisah.
 
 ### Pembaruan realtime melalui artifact

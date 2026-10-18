@@ -28,3 +28,9 @@ Canonical reference: `SKILL.md` tetap utuh. Semua butir Bagian 14 ditinjau denga
 | Aturan bersyarat lain | Redesign preservation, premium-consumer palette, serif, quotes, scoring bars, logo-wall, marquee, dan GSAP canonical skeleton tidak berlaku karena pola tersebut tidak digunakan.                                                                                                                                                                              |
 
 Verifikasi otomatis tidak menggantikan seluruh evaluasi aksesibilitas manual. Skor laboratorium juga bukan data Core Web Vitals pengguna nyata.
+
+## Verifikasi Fase 3 pada hosting final
+
+Perubahan beranda berfokus pada pengiriman resource dan render; isi, rute, navigasi, palet, Lucide, serta keluarga font tetap mengikuti PRD dan desain yang sudah disetujui. Hero diprioritaskan, daftar room dan query hanya dimuat saat diperlukan, dan bagian di bawah viewport memakai content-visibility. SSR hero tetap terbaca sebelum hidrasi. Reduced motion tetap berlaku.
+
+Inter dan Jakarta memakai next/font/local dengan rentang variable yang dipakai UI; glyph map dipertahankan dan lisensi OFL disertakan. Hero memakai kualitas AVIF 60 dan ukuran responsif yang sesuai. Efek glow memakai shadow agar tidak menambah lebar halaman. Pemeriksaan produksi pada 1280/375 piksel dan regresi 18 rute menunjukkan tidak ada overflow horizontal; screenshot diperiksa secara visual. Audit aksesibilitas mobile mencatat 100. Hasil performa dipisah antara mesin lokal dan CI; INP lapangan tidak diklaim telah diukur.

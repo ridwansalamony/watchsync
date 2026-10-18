@@ -91,3 +91,15 @@ Tidak mencakup node_modules, .runtime, .next, test-results, atau file kredensial
 - reports/phase-3-production-smoke.json, phase-3-lighthouse-production.json, screenshots/phase-3-production-*.png: bukti hosting final.
 
 File `.env.production`, `deploy/.env.production`, dan `.vercel/` hanya tersedia lokal/server, tidak ikut commit. Seluruh perubahan kode/laporan disimpan di repository.
+
+- web/src/components/data-bootstrap.tsx: bootstrap beranda menunggu resource awal selesai; rute produk tetap memuat data segera. Hero memakai kualitas dan ukuran responsif yang sesuai serta gradient tanpa filter blur.
+- reports/phase-3-lighthouse-production-summary.json: tiga pengukuran mobile berurutan, median LCP dan nilai tiap run.
+
+- web/src/app/layout.tsx: font heading diprioritaskan untuk preload; body Inter dan monospace tetap memakai next/font tanpa preload awal.
+
+- web/src/app/fonts/{inter-latin,jakarta-latin}.woff2, dua lisensi OFL dan README sumber: font variable Latin dengan rentang bobot yang digunakan UI, tetap melalui next/font/local.
+
+- .github/workflows/performance.yml: tiga audit mobile Lighthouse produksi manual di CI, artifact trace dan ringkasan median, tanpa secret aplikasi.
+- reports/phase-3-lighthouse-ci{,-summary}.json: bukti pengukuran pada runner CI, terpisah dari hasil mesin lokal.
+
+- reports/preflight.md dan reports/assets.md: verifikasi desain produksi dan sumber/lisensi font yang dipadatkan.

@@ -1,6 +1,6 @@
 # WatchSync Room
 
-Aplikasi Next.js 15 dengan PostgreSQL Neon, Auth.js v5, dan server Socket.IO terpisah. Fase 3 menambahkan LiveKit, penguatan keamanan, SEO, pengujian browser dan beban, serta berkas deployment. Deployment publik menunggu konfigurasi hosting pemilik proyek. Lihat [panduan deployment lengkap](deploy/PANDUAN.md) dan [laporan Fase 3](reports/phase-3.md).
+Aplikasi Next.js 15 dengan PostgreSQL Neon, Auth.js v5, dan server Socket.IO terpisah. Fase 3 menambahkan LiveKit, penguatan keamanan, SEO, pengujian browser dan beban, serta berkas deployment. Aplikasi produksi aktif di [watchsync-ruby.vercel.app](https://watchsync-ruby.vercel.app). Lihat [panduan deployment lengkap](deploy/PANDUAN.md) dan [laporan Fase 3](reports/phase-3.md).
 
 ## Menjalankan development
 
@@ -94,3 +94,5 @@ npm run test:load
 Skrip beban memakai Artillery dengan processor Socket.IO, 10 room dan 50 identitas unik per room. Target dibatasi localhost agar tidak membebani hosting tanpa konfigurasi khusus. `LOAD_TARGET` dan `LOAD_ORIGIN` dapat disesuaikan dengan port lokal. Data fixture dan token sementara dibersihkan.
 
 Untuk deployment Vercel + VPS Rumahweb, ikuti [deploy/PANDUAN.md](deploy/PANDUAN.md), mulai dari informasi VPS dan repository. Build image melalui Actions sehingga VPS S hanya menarik dan menjalankan image.
+
+Audit performa produksi dapat dijalankan manual melalui workflow `performance.yml`. Laporan akhir menyimpan tiga run CI dan median, terpisah dari pengukuran mesin lokal. Login Google produksi telah dikonfirmasi berhasil oleh pemilik; perangkat media fisik dan INP lapangan tetap perlu diperiksa.

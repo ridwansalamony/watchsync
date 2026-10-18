@@ -9,8 +9,10 @@
     "Token produksi dan publikasi LiveKit kamera/mikrofon sintetis",
     "Room mobile tanpa overflow",
     "Redirect OAuth memakai callback produksi (login interaktif belum diuji)",
+    "Beranda desktop/mobile dan daftar room yang dimuat saat terlihat",
     "Fixture produksi dihapus melalui tindakan Owner"
   ],
-  "startedAt": "2026-10-18T07:53:31.784Z",
-  "finishedAt": "2026-10-18T07:54:18.838Z"
+  "startedAt": "2026-10-18T07:59:48.902Z",
+  "status": "passed",
+  "finishedAt": "2026-10-18T08:00:04.387Z"
 }

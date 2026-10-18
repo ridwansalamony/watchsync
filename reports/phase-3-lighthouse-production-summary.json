@@ -1,0 +1,30 @@
+{
+  "runs": [
+    {
+      "run": 1,
+      "performance": 95,
+      "accessibility": 100,
+      "lcpMs": 2783.332,
+      "cls": 0,
+      "tbtMs": 74
+    },
+    {
+      "run": 2,
+      "performance": 96,
+      "accessibility": 100,
+      "lcpMs": 2582.255,
+      "cls": 0,
+      "tbtMs": 115
+    },
+    {
+      "run": 3,
+      "performance": 91,
+      "accessibility": 100,
+      "lcpMs": 2689.241,
+      "cls": 0,
+      "tbtMs": 276
+    }
+  ],
+  "selectedMedianRun": 3,
+  "note": "Tiga audit mobile Lighthouse berurutan. File detail memakai run median LCP. INP lapangan belum diukur."
+}

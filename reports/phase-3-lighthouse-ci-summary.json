@@ -1,0 +1,38 @@
+{
+  "runs": [
+    {
+      "run": 1,
+      "performance": 84,
+      "accessibility": 100,
+      "lcpMs": 2545.295,
+      "cls": 0.000004255364163350541,
+      "tbtMs": 515
+    },
+    {
+      "run": 2,
+      "performance": 97,
+      "accessibility": 100,
+      "lcpMs": 2462.029,
+      "cls": 0,
+      "tbtMs": 108
+    },
+    {
+      "run": 3,
+      "performance": 98,
+      "accessibility": 100,
+      "lcpMs": 2281.072,
+      "cls": 0.000004255364163350541,
+      "tbtMs": 89
+    }
+  ],
+  "median": {
+    "run": 2,
+    "performance": 97,
+    "accessibility": 100,
+    "lcpMs": 2462.029,
+    "cls": 0,
+    "tbtMs": 108
+  },
+  "environment": "GitHub Actions ubuntu-latest, Node.js 22, Chrome headless, Lighthouse 13.5.0 mobile",
+  "note": "INP lapangan belum diukur."
+}
