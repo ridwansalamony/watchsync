@@ -56,7 +56,8 @@ export function Home() {
               priority
               fetchPriority="high"
               decoding="sync"
-              sizes="(max-width: 1024px) 100vw, 650px"
+              quality={60}
+              sizes="(max-width: 767px) calc(100vw - 32px), (max-width: 1024px) calc(100vw - 64px), 650px"
               className="object-cover"
             />
           </div>
