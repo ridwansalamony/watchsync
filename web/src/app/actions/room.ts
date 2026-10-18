@@ -1,4 +1,5 @@
 "use server";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { database } from "@/db";
 import { rooms, roomMembers, savedRooms } from "@/db/schema";
 import {
@@ -39,8 +40,10 @@ export async function invitationLink(code: string) {
 }
 async function createRoomInternal(input: unknown) {
   const value = roomSchema.parse(input);
-  const ip = (await headers()).get("x-forwarded-for")?.split(",")[0]?.trim() ?? "local";
-  if (!(await createLimit.limit(ip)).success) throw new RoomActionError("Maksimal 5 room per jam. Coba kembali nanti.");
+  const ip =
+    (await headers()).get("x-forwarded-for")?.split(",")[0]?.trim() ?? "local";
+  if (!(await createLimit.limit(ip)).success)
+    throw new RoomActionError("Maksimal 5 room per jam. Coba kembali nanti.");
   const who = await identity(true);
   const db = database();
   const alphabet = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
@@ -192,7 +195,10 @@ function failure(error: unknown): RoomResult {
 }
 export async function createRoom(input: unknown): Promise<RoomResult> {
   try {
-    return await createRoomInternal(input);
+    const result = await createRoomInternal(input);
+    revalidateTag("public-rooms");
+    revalidatePath("/sitemap.xml");
+    return result;
   } catch (error) {
     return failure(error);
   }

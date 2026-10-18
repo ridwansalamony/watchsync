@@ -1,0 +1,16 @@
+{
+  "app": "https://watchsync-ruby.vercel.app",
+  "realtime": "https://202-155-16-40.sslip.io",
+  "checks": [
+    "HTTPS dan health realtime",
+    "Buat room dan Socket.IO melalui VPS",
+    "Gabung dan chat lintas dua sesi",
+    "Playlist dan YouTube Data API",
+    "Token produksi dan publikasi LiveKit kamera/mikrofon sintetis",
+    "Room mobile tanpa overflow",
+    "Redirect OAuth memakai callback produksi (login interaktif belum diuji)",
+    "Fixture produksi dihapus melalui tindakan Owner"
+  ],
+  "startedAt": "2026-10-18T07:53:31.784Z",
+  "finishedAt": "2026-10-18T07:54:18.838Z"
+}

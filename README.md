@@ -62,8 +62,8 @@ Build produksi lokal dijalankan dengan npm run start -w web dan npm run start -w
 - YouTube hanya mendukung playback rate yang dilaporkan player. Koreksi memakai 0,97/1,03 jika tersedia, dengan fallback seek. Autoplay mengikuti kebijakan browser.
 - LiveKit memakai token satu jam, kamera 480p/720p, push-to-talk, dan satu screen sharing per room. Kamera/mikrofon baru diakses setelah pengguna mengaktifkannya.
 - Rate limit: pembuatan room 5/jam/IP, password 5/10 menit, pencarian 30/menit/IP.
-- SEO: metadata/OG, sitemap room publik, robots, ISR, dan noindex room. CSS inline eksperimental Next.js digunakan untuk mengurangi request yang menghambat render; motion features dimuat terpisah.
-- Docker, Compose+Caddy, dan workflow image tersedia. Publikasi Vercel/VPS dan migrasi produksi belum dijalankan.
+- SEO: metadata/OG, sitemap room publik, robots, ISR, dan noindex room. Motion features, Socket.IO client, Auth.js client, dan daftar room publik dimuat sesuai kebutuhan.
+- Docker, Compose+Caddy, dan workflow image tersedia. Aplikasi aktif di https://watchsync-ruby.vercel.app dan realtime VPS di https://202-155-16-40.sslip.io. Migrasi database produksi terpisah berhasil tanpa seed; Redis memakai namespace produksi.
 
 ## Referensi
 

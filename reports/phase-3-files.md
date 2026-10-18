@@ -73,3 +73,21 @@ Tidak mencakup node_modules, .runtime, .next, test-results, atau file kredensial
 ## Dihapus
 
 - web/src/components/room/media-grid.tsx: simulasi kamera digantikan track LiveKit nyata.
+
+## Tambahan pada deployment produksi
+
+- scripts/check-production.mjs: validasi konfigurasi produksi tanpa menampilkan secret.
+- scripts/smoke-production.mjs: smoke test hosting final, dua sesi, media sintetis, dan pembersihan fixture melalui Owner.
+- shared/src/redis-key.ts, shared/package.json, realtime/package.json, package-lock.json: namespace Redis per lingkungan dan dependency workspace untuk Docker.
+- .github/workflows/realtime-artifact.yml: build image dan artifact tanpa token registry.
+- deploy/install-docker-ubuntu.sh: instalasi Docker resmi Ubuntu.
+- .vercelignore, vercel.json, .gitignore: hosting region sin1 dan pengecualian file lokal/rahasia.
+- web/src/components/public/deferred-public-rooms.tsx: daftar room dimuat mendekati viewport.
+- web/src/components/public/public-rooms.tsx, home.tsx, web/src/app/globals.css: status muat/error dan penundaan render bagian di bawah viewport.
+- web/src/components/query-provider.tsx, providers.tsx, web/src/app/dashboard/layout.tsx, web/src/app/room/[kode]/layout.tsx: TanStack Query hanya dimuat pada bagian yang menggunakannya.
+- web/src/lib/realtime-client.ts, web/src/stores/app-store.ts: SDK klien dimuat sesuai kebutuhan.
+- web/src/app/actions/room.ts, room-settings.ts, web/src/lib/seo.ts: invalidasi cache publik/metadata saat room dibuat, diubah, atau dihapus.
+- .env.example, deploy/.env.example, package.json, README.md, deploy/PANDUAN.md, reports/phase-3.md: konfigurasi, perintah, dan dokumentasi terbaru.
+- reports/phase-3-production-smoke.json, phase-3-lighthouse-production.json, screenshots/phase-3-production-*.png: bukti hosting final.
+
+File `.env.production`, `deploy/.env.production`, dan `.vercel/` hanya tersedia lokal/server, tidak ikut commit. Seluruh perubahan kode/laporan disimpan di repository.

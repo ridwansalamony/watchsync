@@ -1,4 +1,5 @@
 "use server";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { membership } from "@/lib/identity";
 import { database } from "@/db";
 import { rooms } from "@/db/schema";
@@ -10,7 +11,11 @@ import { plainText, parseRoomCode } from "@watchsync/shared/validation";
 const settings = z
   .object({
     name: z.string().trim().min(3).max(60).optional(),
-    description: z.string().transform(plainText).pipe(z.string().max(280)).optional(),
+    description: z
+      .string()
+      .transform(plainText)
+      .pipe(z.string().max(280))
+      .optional(),
     privacy: z.enum(["public", "unlisted", "private"]).optional(),
     controlMode: z.enum(["owner_only", "moderators", "everyone"]).optional(),
     password: z.string().min(4).max(32).or(z.literal("")).optional(),
@@ -32,6 +37,9 @@ export async function updateRoomSettings(code: string, input: unknown) {
       updatedAt: new Date(),
     })
     .where(eq(rooms.id, room.id));
+  revalidateTag("public-rooms");
+  revalidatePath(`/gabung/${code}`);
+  revalidatePath("/sitemap.xml");
   await notify(code);
 }
 export async function deleteRoom(code: string) {
@@ -40,5 +48,8 @@ export async function deleteRoom(code: string) {
   if (member.role !== "owner")
     throw new Error("Hanya Owner dapat menghapus room.");
   await database().delete(rooms).where(eq(rooms.id, room.id));
+  revalidateTag("public-rooms");
+  revalidatePath(`/gabung/${code}`);
+  revalidatePath("/sitemap.xml");
   await notify(code, true);
 }

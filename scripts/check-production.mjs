@@ -125,4 +125,9 @@ try {
 console.log(
   "Pemeriksaan ini memvalidasi format dan kesesuaian konfigurasi; tidak menguji kredensial layanan, DNS, atau login Google. Nilai secret tidak dicetak.",
 );
+check(
+  "Namespace Redis produksi terpisah dari development",
+  /^[a-zA-Z0-9:_-]{1,64}$/.test(env.REDIS_NAMESPACE ?? "") &&
+    env.REDIS_NAMESPACE !== "wsr",
+);
 process.exitCode = failures ? 1 : 0;

@@ -36,5 +36,5 @@ export const publicRoom = unstable_cache(
       where: and(eq(rooms.code, code), eq(rooms.privacy, "public")),
     }),
   ["seo-public-room"],
-  { revalidate: 60 },
+  { revalidate: 60, tags: ["public-rooms"] },
 );

@@ -1,4 +1,9 @@
 @import "tailwindcss";
+
+.deferred-section {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 700px;
+}
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);

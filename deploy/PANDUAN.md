@@ -240,3 +240,40 @@ Setelah pembaruan: push kode, jalankan workflow image, perbarui tag SHA pada `.e
 | Container mati kehabisan RAM | `docker stats`, log, dan kapasitas VPS; upgrade bila perlu |
 
 Yang boleh dikirim untuk bantuan lanjutan: URL repository, URL aplikasi, subdomain realtime, IP VPS, OS, username SSH, dan lokasi key lokal. Jangan kirim nilai environment atau password.
+
+## Konfigurasi produksi yang sudah dipasang
+
+Deployment 18 Oktober 2026:
+
+- Web: https://watchsync-ruby.vercel.app (Vercel, Node.js 22, fungsi region sin1).
+- Realtime: https://202-155-16-40.sslip.io; `/healthz` melalui HTTPS Caddy.
+- VPS Ubuntu 24.04, Docker Compose, batas realtime 600 MiB, restart otomatis dan rotasi log.
+- Database `watchsync_production` sudah dimigrasikan tanpa seed, terpisah dari development.
+- Redis: `REDIS_NAMESPACE=wsr:production` sama pada web dan VPS; development tetap `wsr`.
+- `.env.production` lokal dan `deploy/.env.production` diabaikan Git. Tiga secret aplikasi produksi berbeda dari development. Env VPS hanya berisi kebutuhan realtime, mode file 600.
+- Callback Google: `https://watchsync-ruby.vercel.app/api/auth/callback/google`. Pemilik sudah mengonfirmasi penyimpanan callback; login interaktif masih perlu diuji.
+- GitHub terhubung ke proyek Vercel. Push main membangun web; image realtime diperbarui melalui workflow terpisah.
+
+### Pembaruan realtime melalui artifact
+
+```powershell
+gh workflow run realtime-artifact.yml --repo ridwansalamony/watchsync
+gh run list --workflow realtime-artifact.yml --repo ridwansalamony/watchsync
+# Setelah berhasil, ganti RUN_ID.
+gh run download RUN_ID --repo ridwansalamony/watchsync -n watchsync-realtime-image -D .runtime/deploy-image
+scp -i C:\Users\Dinute\.ssh\id_rsa .runtime/deploy-image/watchsync-realtime.tar.gz root@202.155.16.40:/opt/watchsync/
+```
+
+Melalui SSH:
+
+```bash
+docker load -i /opt/watchsync/watchsync-realtime.tar.gz
+cd /opt/watchsync/deploy
+# Isi REALTIME_IMAGE dengan tag SHA dari run yang berhasil.
+docker compose --env-file .env.production up -d --no-build
+docker compose --env-file .env.production ps
+```
+
+Workflow tidak membutuhkan secret aplikasi. Artifact berisi image kode/runtime; env tetap pada VPS. Workflow GHCR tersedia sebagai alternatif. Rollback: pilih tag SHA image sebelumnya lalu jalankan `up -d --no-build`.
+
+`npm run check:production` memeriksa kesesuaian env tanpa mencetak nilainya. `node scripts/smoke-production.mjs` membuat satu room sementara, memakai dua sesi dan media sintetis, menguji produksi, lalu menghapus room melalui tindakan Owner. Tes memakai kuota layanan dan batas create-room normal; jalankan seperlunya. Jangan arahkan seed atau suite fixture database development ke produksi. Monitor HTTP eksternal belum dipasang; Docker health check dan endpoint `/healthz` sudah aktif.

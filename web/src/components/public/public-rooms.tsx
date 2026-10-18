@@ -4,7 +4,15 @@ import type { Room } from "@watchsync/shared/types";
 import { Reveal } from "@/components/motion/reveal";
 import { RoomCard } from "./room-card";
 import { Button } from "@/components/ui/button";
+import { QueryProvider } from "@/components/query-provider";
 export function PublicRooms() {
+  return (
+    <QueryProvider>
+      <PublicRoomList />
+    </QueryProvider>
+  );
+}
+function PublicRoomList() {
   const {
     data: rooms = [],
     isPending,

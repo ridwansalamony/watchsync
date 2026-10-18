@@ -78,7 +78,7 @@ export function Home() {
           ))}
         </div>
       </section>
-      <section className="page-width section-space">
+      <section className="page-width section-space deferred-section">
         <Reveal>
           <h2 className="text-3xl sm:text-4xl">Bukan sekadar menonton.</h2>
           <p className="mt-4 max-w-lg leading-7 text-muted-foreground">
@@ -148,7 +148,7 @@ export function Home() {
           ))}
         </div>
       </section>
-      <section className="bg-card/40">
+      <section className="bg-card/40 deferred-section">
         <div className="page-width section-space grid gap-10 md:grid-cols-[.8fr_1.2fr]">
           <Reveal>
             <h2 className="max-w-sm text-3xl leading-tight sm:text-4xl">
@@ -194,7 +194,7 @@ export function Home() {
           </div>
         </div>
       </section>
-      <section className="page-width section-space">
+      <section className="page-width section-space deferred-section">
         <Reveal>
           <div className="flex items-center gap-3">
             <Radio size={24} className="text-primary" />
