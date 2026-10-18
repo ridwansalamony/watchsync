@@ -1,0 +1,43 @@
+name: Audit production performance
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  lighthouse:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Siapkan Lighthouse
+        run: |
+          command -v google-chrome
+          npm install --prefix /tmp/watchsync-audit --no-package-lock lighthouse@13.5.0
+      - name: Audit mobile tiga kali
+        env:
+          CHROME_PATH: /usr/bin/google-chrome
+        run: |
+          mkdir -p reports
+          for run in 1 2 3; do
+            node /tmp/watchsync-audit/node_modules/lighthouse/cli/index.js https://watchsync-ruby.vercel.app --chrome-flags="--headless=new --no-sandbox" --only-categories=performance,accessibility --output=json --output-path="reports/lighthouse-$run.json" --save-assets --quiet
+          done
+      - name: Ringkas median
+        run: |
+          node --input-type=module <<'JS'
+          import fs from 'node:fs';
+          const runs = [1,2,3].map(run => {
+            const d = JSON.parse(fs.readFileSync(`reports/lighthouse-${run}.json`));
+            return {run, performance:100*d.categories.performance.score, accessibility:100*d.categories.accessibility.score, lcpMs:d.audits['largest-contentful-paint'].numericValue, cls:d.audits['cumulative-layout-shift'].numericValue, tbtMs:d.audits['total-blocking-time'].numericValue};
+          });
+          const median = [...runs].sort((a,b)=>a.lcpMs-b.lcpMs)[1];
+          fs.writeFileSync('reports/summary.json',JSON.stringify({runs,median,environment:'GitHub Actions ubuntu-latest, Node.js 22, Chrome headless, Lighthouse 13.5.0 mobile',note:'INP lapangan belum diukur.'},null,2));
+          fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, `## Audit produksi\n\nMedian LCP: ${median.lcpMs.toFixed(0)} ms; performance ${median.performance}; accessibility ${median.accessibility}; CLS ${median.cls}.\n\n${JSON.stringify(runs)}\n`);
+          console.log(JSON.stringify({runs,median}));
+          JS
+      - uses: actions/upload-artifact@v4
+        with:
+          name: production-performance
+          path: reports/
+          retention-days: 7
